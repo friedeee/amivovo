@@ -32,4 +32,23 @@ window.AMIVOVO_REGLAGES = {
     marches: {
         // 'Marché de Houndjro (Abomey)': [7.1840, 1.9890],
     },
+
+    /*
+     * Annonces en vedette : prix affiché sur la page « Je vends ».
+     * Quand une vendeuse a payé, écrivez dans la colonne « vedette » d'une de ses lignes
+     * (onglet annonces du tableau) la date de fin, par exemple 18/11/2026, ou « oui » sans fin.
+     */
+    vedette: { prix: 1000, duree: '7 jours' },
+
+    /* Bulletin des prix : tarif mensuel de la formule Pro. Bulletin complet à copier : bulletin.html?equipe */
+    bulletin: { prixPro: 3000 },
+
+    /*
+     * Partenaires affichés sur l'accueil, la page Conseils et la page Partenaires.
+     * Pour en ajouter un, copiez le modèle ci-dessous sans les « // ». Le logo est facultatif
+     * (mettez l'image dans le dossier images/partenaires/).
+     */
+    partenaires: [
+        // { nom: 'Bidons Sèna', activite: 'Bidons et bouteilles', description: 'Bidons neufs de 5 et 25 L, livraison à Cotonou.', whatsapp: '2290100000000', logo: 'images/partenaires/sena.png' },
+    ],
 };

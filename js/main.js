@@ -16,6 +16,7 @@
         hausse: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>',
         baisse: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 9v8H9"/></svg>',
         stable: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"/></svg>',
+        etoile: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9z"/></svg>',
         lieu: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
         whatsapp: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.1-1.2l-.5-.3z"/></svg>',
     };
@@ -123,6 +124,30 @@
     $$('[data-formulaire]').forEach((lien) => {
         if (A.REGLAGES.formulaire) { lien.href = A.REGLAGES.formulaire; lien.target = '_blank'; lien.rel = 'noopener'; }
         else lien.hidden = true;
+    });
+
+    /* Partenaires (liste dans reglages.js). Sans partenaire, le bloc invite à le devenir, ou disparaît. */
+    const partenaires = (A.REGLAGES.partenaires || []).filter((p) => p && p.nom);
+    $$('[data-partenaires]').forEach((zone) => {
+        const echap = (t) => String(t ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        if (!partenaires.length) {
+            if (zone.dataset.partenaires === 'masquer-si-vide') zone.closest('section').hidden = true;
+            else zone.innerHTML = '<p class="vide">Pas encore de partenaire. <a href="#devenir">Votre entreprise peut être la première.</a></p>';
+            return;
+        }
+        zone.innerHTML = partenaires.map((p) => {
+            const lien = p.lien || (p.whatsapp ? A.lienWhatsapp(p.whatsapp, `Bonjour ${p.nom}, je vous ai trouvé sur Amì vɔ̀vɔ̀.`) : '');
+            const logo = p.logo ? `<img src="${echap(p.logo)}" alt="" loading="lazy">` : `<span class="avatar" aria-hidden="true">${echap(p.nom.charAt(0).toUpperCase())}</span>`;
+            const ouverture = lien ? `a href="${echap(lien)}" target="_blank" rel="noopener sponsored"` : 'div';
+            return `<${ouverture} class="carte partenaire apparait">${logo}<span><strong>${echap(p.nom)}</strong>${p.activite ? `<small>${echap(p.activite)}</small>` : ''}${p.description ? `<span class="texte-doux">${echap(p.description)}</span>` : ''}</span></${lien ? 'a' : 'div'}>`;
+        }).join('');
+        $$('.apparait', zone).forEach(observer2);
+    });
+
+    /* Montants réglables (vedette, bulletin) affichés dans les pages. */
+    $$('[data-reglage]').forEach((el) => {
+        const valeur = el.dataset.reglage.split('.').reduce((o, cle) => (o ? o[cle] : undefined), A.REGLAGES);
+        if (valeur !== undefined && valeur !== '') el.textContent = typeof valeur === 'number' ? A.fcfa(valeur) : valeur;
     });
 
     $$('[data-annee]').forEach((el) => { el.textContent = new Date().getFullYear(); });
@@ -301,7 +326,8 @@
         else if (ref && a.prix > ref * 1.05) comparaison = '<span class="badge orange">Au-dessus du prix moyen</span>';
         const message = `Bonjour ${a.vendeuse}, j'ai vu votre annonce sur Amì vɔ̀vɔ̀ : ${a.quantite} × ${a.mesure} à ${A.fcfa(a.prix)} (${a.marche}). Est-ce toujours disponible ?`;
         return `
-            <article class="carte annonce apparait ${a.disponible ? '' : 'epuisee'}" style="--delai:${(i % 3) * 100}ms">
+            <article class="carte annonce apparait ${a.disponible ? '' : 'epuisee'} ${a.vedette && a.disponible ? 'en-vedette' : ''}" style="--delai:${(i % 3) * 100}ms">
+                ${a.vedette && a.disponible ? `<span class="ruban-vedette">${ICONES.etoile} En vedette</span>` : ''}
                 <div class="annonce-entete">
                     <span class="avatar" aria-hidden="true">${echapper(a.vendeuse.replace(/^(maman|da|tanti|tante|mama)\s+/i, '').charAt(0).toUpperCase())}</span>
                     <div>
@@ -340,10 +366,10 @@
         conteneur.innerHTML = liste.map((v, i) => {
             const actives = v.annonces.filter((a) => a.disponible).length;
             return `
-                <a class="carte carte-vendeuse apparait" style="--delai:${(i % 4) * 80}ms" href="vendeuse.html?id=${encodeURIComponent(v.telephone || v.nom)}">
+                <a class="carte carte-vendeuse apparait ${v.vedette ? 'en-vedette' : ''}" style="--delai:${(i % 4) * 80}ms" href="vendeuse.html?id=${encodeURIComponent(v.telephone || v.nom)}">
                     <span class="avatar" aria-hidden="true">${echapper(initiale(v.nom))}</span>
                     <span class="carte-vendeuse-texte">
-                        <strong>${echapper(v.nom)}</strong>
+                        <strong>${echapper(v.nom)}${v.vedette ? ` <span class="etoile-vedette" title="En vedette">${ICONES.etoile}</span>` : ''}</strong>
                         <small>${ICONES.lieu}${echapper(v.marches.join(', '))}</small>
                         <span class="badges">${v.mesures.map((m) => `<span class="badge">${echapper(m)}</span>`).join('')}</span>
                     </span>
@@ -412,7 +438,7 @@
        ============================================================ */
 
     const MESSAGE_SANS_PRIX = 'Pas encore de prix relevé. Vous vendez de l\'huile rouge ? <a href="vendre.html">Envoyez le premier prix du jour</a>.';
-    const PAGES_DONNEES =['accueil', 'prix', 'annonces', 'marches', 'outils', 'vendeuse'];
+    const PAGES_DONNEES = ['accueil', 'prix', 'annonces', 'marches', 'outils', 'vendeuse', 'bulletin', 'partenaires'];
     const parametres = new URLSearchParams(window.location.search);
 
     async function chargerTout() {
@@ -505,7 +531,7 @@
             else {
                 const limite = Number(zoneAnnonces.dataset.limite || 0);
                 if (limite) {
-                    listeAnnonces(zoneAnnonces, annonces.annonces.filter((a) => a.disponible).slice(0, limite), resumes);
+                    listeAnnonces(zoneAnnonces, A.vedettesDabord(annonces.annonces.filter((a) => a.disponible)).slice(0, limite), resumes);
                 } else {
                     const fMarche = $('#filtre-annonce-marche'); const fMesure = $('#filtre-annonce-mesure');
                     const fTri = $('#filtre-annonce-tri'); const fDispo = $('#filtre-annonce-dispo');
@@ -520,6 +546,7 @@
                             && (!fMesure.value || a.mesure === fMesure.value) && (!fDispo.checked || a.disponible));
                         const litre = (a) => a.prix / (A.MESURES[a.mesure] || 1);
                         if (fTri.value === 'prix') liste = [...liste].sort((a, b) => litre(a) - litre(b));
+                        else liste = A.vedettesDabord(liste);
                         listeAnnonces(zoneAnnonces, liste, resumes);
                         $('#nombre-annonces').textContent = `${liste.length} annonce${liste.length > 1 ? 's' : ''}`;
                     };
@@ -532,7 +559,7 @@
         const zoneVendeuses = $('#vendeuses');
         if (zoneVendeuses && annonces) {
             const liste = A.vendeuses(annonces.historique)
-                .sort((a, b) => b.annonces.filter((x) => x.disponible).length - a.annonces.filter((x) => x.disponible).length || a.nom.localeCompare(b.nom));
+                .sort((a, b) => Number(b.vedette) - Number(a.vedette) || b.annonces.filter((x) => x.disponible).length - a.annonces.filter((x) => x.disponible).length || a.nom.localeCompare(b.nom));
             cartesVendeuses(zoneVendeuses, liste.slice(0, Number(zoneVendeuses.dataset.limite || 999)));
         }
         return donnees;

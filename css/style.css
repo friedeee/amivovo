@@ -3281,3 +3281,353 @@ b.vert,
     background: var(--huile);
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--huile) 30%, transparent);
 }
+
+
+/* ============================================================
+   Vedette, partenaires, bulletin
+   ============================================================ */
+
+/* ---------- Annonces en vedette ---------- */
+
+.annonce.en-vedette,
+.carte-vendeuse.en-vedette {
+    position: relative;
+    border: 2px solid var(--or);
+    box-shadow: 0 22px 50px -26px rgba(232, 163, 61, 0.9);
+}
+
+.ruban-vedette {
+    position: absolute;
+    top: -12px;
+    right: 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--or), #c97a12);
+    color: #2b1803;
+    font-size: 0.78rem;
+    font-weight: 700;
+    box-shadow: 0 8px 18px -8px rgba(201, 122, 18, 0.9);
+}
+
+.ruban-vedette svg {
+    width: 13px;
+    height: 13px;
+}
+
+.etoile-vedette {
+    display: inline-grid;
+    vertical-align: -2px;
+    color: var(--or);
+}
+
+.etoile-vedette svg {
+    width: 15px;
+    height: 15px;
+}
+
+.bloc-vedette {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 22px;
+    margin-top: 28px;
+    padding: 26px;
+    background: linear-gradient(120deg, var(--carte), var(--or-clair));
+    border: 1.5px solid color-mix(in srgb, var(--or) 50%, transparent);
+}
+
+.bloc-vedette h2 {
+    font-size: 1.7rem;
+    margin: 4px 0 6px;
+}
+
+.bloc-vedette-icone {
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--or), #c97a12);
+    color: #fff;
+    animation: flotter 5s ease-in-out infinite;
+}
+
+.bloc-vedette-icone svg {
+    width: 30px;
+    height: 30px;
+}
+
+@media (max-width: 760px) {
+    .bloc-vedette {
+        grid-template-columns: 1fr;
+        padding: 22px;
+    }
+
+    .bloc-vedette .bouton {
+        width: 100%;
+    }
+}
+
+/* ---------- Partenaires ---------- */
+
+.grille-partenaires {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+.section-partenaires .bloc-entete a {
+    color: var(--huile);
+    font-weight: 700;
+}
+
+.partenaire {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px;
+    text-decoration: none;
+    transition: transform 0.3s;
+}
+
+a.partenaire:hover {
+    transform: translateY(-4px);
+}
+
+.partenaire img {
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+    object-fit: contain;
+    background: #fff;
+    flex-shrink: 0;
+}
+
+.partenaire > span:last-child {
+    display: grid;
+    gap: 2px;
+}
+
+.partenaire small {
+    color: var(--huile);
+    font-weight: 700;
+}
+
+.partenaire .texte-doux {
+    font-size: 0.9rem;
+}
+
+.grille-partenaires .vide a {
+    color: var(--huile);
+    font-weight: 700;
+}
+
+.bandeau-chiffres-simple {
+    margin-top: 0;
+}
+
+/* ---------- Bulletin ---------- */
+
+.bandeau-bulletin {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 20px;
+    padding: 22px 26px;
+    text-decoration: none;
+    background: linear-gradient(120deg, var(--carte), var(--palme-clair));
+    transition: transform 0.3s;
+}
+
+.bandeau-bulletin:hover {
+    transform: translateY(-3px);
+}
+
+.bandeau-bulletin > span:nth-child(2) {
+    display: grid;
+    gap: 4px;
+}
+
+.bandeau-bulletin b {
+    font-family: var(--police-titre);
+    font-size: 1.45rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.bandeau-bulletin-icone {
+    display: grid;
+    place-items: center;
+    width: 58px;
+    height: 58px;
+    border-radius: 18px;
+    background: var(--whatsapp);
+    color: #fff;
+}
+
+.bandeau-bulletin-icone svg {
+    width: 28px;
+    height: 28px;
+}
+
+@media (max-width: 760px) {
+    .bandeau-bulletin {
+        grid-template-columns: 1fr;
+        padding: 22px;
+    }
+
+    .bandeau-bulletin .bouton {
+        width: 100%;
+    }
+}
+
+.disposition-bulletin {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    gap: 36px;
+    align-items: start;
+}
+
+.grille-formules {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.formule {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: 10px;
+    padding: 26px;
+}
+
+.formule .liste-coches {
+    margin: 4px 0 8px;
+}
+
+.formule .bouton {
+    margin-top: auto;
+}
+
+.formule-pro {
+    border: 2px solid var(--or);
+    box-shadow: 0 22px 50px -26px rgba(232, 163, 61, 0.9);
+}
+
+.formule-prix {
+    font-family: var(--police-titre);
+    font-size: 2.3rem;
+    color: var(--huile);
+    line-height: 1.1;
+}
+
+.formule-prix small {
+    font-family: var(--police);
+    font-size: 0.95rem;
+    color: var(--encre-douce);
+}
+
+.telephone {
+    position: sticky;
+    top: 90px;
+    display: grid;
+    gap: 12px;
+}
+
+.telephone-ecran {
+    border-radius: 34px;
+    padding: 14px;
+    background: #e9dfd2;
+    border: 8px solid #20140c;
+    box-shadow: var(--ombre);
+    min-height: 420px;
+    background-image: radial-gradient(rgba(31, 81, 48, 0.08) 1.2px, transparent 1.2px);
+    background-size: 16px 16px;
+}
+
+:root[data-theme='dark'] .telephone-ecran {
+    background-color: #0f1712;
+    border-color: #000;
+}
+
+.telephone-entete {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: -14px -14px 14px;
+    padding: 12px 16px;
+    border-radius: 26px 26px 0 0;
+    background: var(--palme);
+    color: #fff;
+}
+
+:root[data-theme='dark'] .telephone-entete {
+    background: #1d3a27;
+}
+
+.telephone-entete img {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+}
+
+.telephone-entete span {
+    display: grid;
+    line-height: 1.2;
+}
+
+.telephone-entete small {
+    opacity: 0.75;
+    font-size: 0.75rem;
+}
+
+.bulle-whatsapp {
+    position: relative;
+    max-width: 92%;
+    padding: 10px 12px 20px;
+    border-radius: 4px 14px 14px 14px;
+    background: #fff;
+    color: #1b1b1b;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12);
+    animation: monter 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+:root[data-theme='dark'] .bulle-whatsapp {
+    background: #1f2c33;
+    color: #e9edef;
+}
+
+.bulle-heure {
+    position: absolute;
+    right: 10px;
+    bottom: 4px;
+    font-size: 0.7rem;
+    opacity: 0.55;
+}
+
+.outils-equipe {
+    display: grid;
+    gap: 10px;
+}
+
+@media (max-width: 1000px) {
+    .disposition-bulletin {
+        grid-template-columns: 1fr;
+    }
+
+    .telephone {
+        position: static;
+    }
+}
+
+@media (max-width: 640px) {
+    .grille-formules {
+        grid-template-columns: 1fr;
+    }
+}

@@ -72,6 +72,13 @@
         return texte;
     }
 
+    /** Colonne « vedette » : « oui » (sans fin) ou une date de fin (« 18/11/2026 »), comprise. */
+    function vedetteActive(valeur) {
+        if (/^(oui|yes|o|1|x|vrai)$/i.test(normaliser(valeur))) return true;
+        const fin = lireDate(valeur);
+        return Boolean(fin) && debutJour(fin) >= debutJour(new Date());
+    }
+
     const estOui = (valeur) => /^(oui|yes|o|1|x|vrai)$/i.test(normaliser(valeur));
     const telephoneNettoye = (valeur) => {
         let chiffres = normaliser(valeur).replace(/\D/g, '');
@@ -156,7 +163,7 @@
         return [
             { date: jour(0), vendeuse: 'Maman Afi', marche: 'Pobè', quantite: 20, mesure: 'Bidon 25 L', prix: 23500, telephone: '22900000001', note: 'Huile bien rouge, pressée cette semaine.', disponible: true },
             { date: jour(0), vendeuse: 'Da Rosine', marche: 'Dantokpa (Cotonou)', quantite: 60, mesure: 'Litre', prix: 1150, telephone: '22900000002', note: 'Livraison possible à Cotonou.', disponible: true },
-            { date: jour(1), vendeuse: 'Coopérative Sèdjè', marche: 'Azovè', quantite: 35, mesure: 'Bidon 25 L', prix: 24000, telephone: '22900000003', note: 'Vente en gros, prix à discuter à partir de 10 bidons.', disponible: true },
+            { date: jour(1), vendeuse: 'Coopérative Sèdjè', marche: 'Azovè', quantite: 35, mesure: 'Bidon 25 L', prix: 24000, telephone: '22900000003', note: 'Vente en gros, prix à discuter à partir de 10 bidons.', disponible: true, vedette: true },
             { date: jour(1), vendeuse: 'Tanti Pélagie', marche: 'Bohicon', quantite: 40, mesure: 'Bouteille 1,5 L', prix: 1600, telephone: '22900000004', note: '', disponible: true },
             { date: jour(2), vendeuse: 'Maman Chantal', marche: 'Ouando (Porto-Novo)', quantite: 12, mesure: 'Bidon 5 L', prix: 5200, telephone: '22900000005', note: 'Bidons propres, bien fermés.', disponible: true },
             { date: jour(2), vendeuse: 'Maman Afi', marche: 'Pobè', quantite: 30, mesure: 'Bidon 5 L', prix: 4800, telephone: '22900000001', note: 'Aussi en petits bidons.', disponible: true },
@@ -236,11 +243,17 @@
                     telephone: telephoneNettoye(l.telephone),
                     note: normaliser(l.note),
                     disponible: !/^(non|no|0|epuise|épuisé|non, epuise|non, épuisé)/i.test(normaliser(l.disponible)),
+                    vedette: vedetteActive(l.vedette),
                 })).filter((a) => a.vendeuse && a.marche && a.prix > 0);
             }
             historique.sort((a, b) => (b.date || 0) - (a.date || 0));
 
             /* Une vendeuse qui renvoie le formulaire remplace son annonce précédente pour la même mesure. */
+            /* « En vedette » se règle pour la vendeuse : il suffit de le marquer sur une de ses lignes. */
+            const idVendeuse = (a) => a.telephone || normaliserCle(a.vendeuse);
+            const enVedette = new Set(historique.filter((a) => a.vedette).map(idVendeuse));
+            historique.forEach((a) => { a.vedette = enVedette.has(idVendeuse(a)); });
+
             const vues = new Set();
             const annonces = historique.filter((a) => {
                 const cle = `${a.telephone || normaliserCle(a.vendeuse)}|${a.mesure}`;
@@ -352,7 +365,7 @@
         const parNumero = new Map();
         historique.forEach((a) => {
             const id = a.telephone || normaliserCle(a.vendeuse);
-            if (!parNumero.has(id)) parNumero.set(id, { id, nom: a.vendeuse, telephone: a.telephone, marches: new Set(), mesures: new Set(), annonces: [], depuis: a.date });
+            if (!parNumero.has(id)) parNumero.set(id, { id, nom: a.vendeuse, telephone: a.telephone, marches: new Set(), mesures: new Set(), annonces: [], depuis: a.date, vedette: Boolean(a.vedette) });
             const v = parNumero.get(id);
             v.annonces.push(a);
             v.marches.add(a.marche);
@@ -361,6 +374,9 @@
         });
         return [...parNumero.values()].map((v) => ({ ...v, marches: [...v.marches], mesures: trierMesures([...v.mesures]) }));
     }
+
+    /** Les annonces en vedette passent devant, sans changer l'ordre des autres. */
+    const vedettesDabord = (liste) => [...liste].sort((a, b) => Number(Boolean(b.vedette)) - Number(Boolean(a.vedette)));
 
     /* ---------- Alertes de prix (gardées dans le téléphone) ---------- */
 
@@ -413,6 +429,7 @@
         trierMesures,
         coordonnees,
         vendeuses,
+        vedettesDabord,
         lireAlertes,
         ecrireAlertes,
         alertesDeclenchees,

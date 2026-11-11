@@ -4,12 +4,12 @@
  * Photos, polices et carte : la copie gardée d'abord (elles ne changent pas).
  * Changer VERSION après une grosse mise à jour pour repartir de zéro.
  */
-const VERSION = 'amivovo-v2';
+const VERSION = 'amivovo-v3';
 const COQUILLE = [
     './', 'index.html', 'prix.html', 'annonces.html', 'marches.html', 'conseils.html', 'outils.html',
-    'cahier.html', 'vendre.html', 'vendeuse.html', 'credits.html',
+    'cahier.html', 'vendre.html', 'vendeuse.html', 'credits.html', 'bulletin.html', 'partenaires.html',
     'css/style.css', 'js/reglages.js', 'js/photos.js', 'js/donnees.js', 'js/main.js', 'js/pwa.js',
-    'js/cahier.js', 'js/carte.js', 'js/outils.js', 'js/vendre.js', 'js/vendeuse.js',
+    'js/cahier.js', 'js/carte.js', 'js/outils.js', 'js/vendre.js', 'js/vendeuse.js', 'js/bulletin.js',
     'images/logo.svg', 'images/favicon.svg', 'images/icone-192.png', 'manifest.webmanifest',
 ];
 
