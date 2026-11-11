@@ -469,6 +469,11 @@
             compter($('[data-chiffre="marches"]', chiffres), marches.length);
             compter($('[data-chiffre="vendeuses"]', chiffres), liste.length);
             compter($('[data-chiffre="annonces"]', chiffres), annonces ? annonces.annonces.filter((a) => a.disponible).length : 0);
+            const libelles = { marches: ['marché suivi', 'marchés suivis'], vendeuses: ['vendeuse', 'vendeuses'], annonces: ['annonce disponible', 'annonces disponibles'] };
+            const nombres = { marches: marches.length, vendeuses: liste.length, annonces: annonces ? annonces.annonces.filter((a) => a.disponible).length : 0 };
+            Object.entries(libelles).forEach(([cle, [un, plusieurs]]) => {
+                $(`[data-chiffre="${cle}"] + span`, chiffres).textContent = nombres[cle] > 1 ? plusieurs : un;
+            });
             if (litre) compter($('[data-chiffre="litre"]', chiffres), litre, A.fcfa);
             else $('[data-chiffre="litre"]', chiffres).textContent = '—';
         }
