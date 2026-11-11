@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Amì vɔ̀vɔ̀ : l'huile rouge au juste prix</title>
+    <meta name="description" content="Prix de l'huile rouge marché par marché, annonces des vendeuses et cahier de comptes, au Bénin.">
+    <meta name="theme-color" content="#1f5130">
+    <meta property="og:title" content="Amì vɔ̀vɔ̀ : l'huile rouge au juste prix">
+    <meta property="og:description" content="Prix de l'huile rouge marché par marché, annonces des vendeuses et cahier de comptes, au Bénin.">
+    <meta property="og:image" content="images/photos/bol.jpg">
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="images/icone-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Noto+Serif+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        /* Thème choisi : appliqué avant l'affichage pour éviter un flash. */
+        try { document.documentElement.dataset.theme = localStorage.getItem('amivovo-theme') || 'light'; } catch (e) {}
+    </script>
+</head>
+<body data-page="accueil" class="page-sombre">
+<a class="lien-evitement" href="#contenu">Aller au contenu</a>
+<header class="entete">
+    <div class="conteneur">
+        <a class="logo" href="index.html">
+            <img src="images/logo.svg" alt="">
+            <span>Amì vɔ̀vɔ̀<small>L'huile rouge au juste prix</small></span>
+        </a>
+        <nav class="nav" id="menu" aria-label="Navigation principale">
+            <a href="prix.html">Prix du jour</a><a href="annonces.html">Annonces</a><a href="marches.html">Carte</a><a href="conseils.html">Conseils</a><a href="outils.html">Outils</a><a href="cahier.html">Mon cahier</a>
+            <a class="nav-cta" href="vendre.html">Je vends</a>
+        </nav>
+        <div class="entete-actions">
+            <button type="button" class="icone-bouton" id="bouton-theme" aria-label="Passer en mode sombre">
+                <svg class="icone-lune" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+                <svg class="icone-soleil" hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+            </button>
+            <button type="button" class="icone-bouton burger" aria-controls="menu" aria-expanded="false" aria-label="Ouvrir le menu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+            </button>
+        </div>
+    </div>
+</header>
+<main id="contenu">
+
+<section class="heros">
+    <div class="heros-photos" aria-hidden="true">
+        <img src="images/photos/bol.jpg" data-photo="bol" alt="">
+        <img src="images/photos/etalage.jpg" data-photo="etalage" alt="" loading="lazy">
+        <img src="images/photos/noix.jpg" data-photo="noix" alt="" loading="lazy">
+        <img src="images/photos/bord-route.jpg" data-photo="bord-route" alt="" loading="lazy">
+    </div>
+    <div class="conteneur">
+        <div>
+            <p class="sur-titre monte">Amì vɔ̀vɔ̀ · l'huile rouge</p>
+            <h1 class="monte" style="--delai:100ms">Le prix change ?<br><em>Vous le savez avant tout le monde.</em></h1>
+            <p class="heros-texte monte" style="--delai:200ms">Le prix de l'huile rouge dans les marchés du Bénin, chaque jour. Les vendeuses publient leur stock, les acheteurs les trouvent, et chacune tient ses comptes sans se tromper.</p>
+            <div class="heros-actions monte" style="--delai:300ms">
+                <a class="bouton bouton-huile" href="prix.html">Voir les prix du jour <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+                <a class="bouton bouton-clair" href="annonces.html">Trouver de l'huile</a>
+            </div>
+        </div>
+        <aside class="carte-prix-heros monte" id="carte-prix-heros" style="--delai:350ms" hidden aria-label="Prix du litre aujourd'hui"></aside>
+    </div>
+    <a class="heros-credit" href="#" target="_blank" rel="noopener"></a>
+</section>
+
+<section class="bandeau-chiffres" aria-label="Amì vɔ̀vɔ̀ en chiffres">
+    <div class="conteneur" id="chiffres-accueil">
+        <div class="chiffre-cle apparait"><b data-chiffre="litre">…</b><span>le litre aujourd'hui</span></div>
+        <div class="chiffre-cle apparait" style="--delai:80ms"><b data-chiffre="marches">…</b><span>marchés suivis</span></div>
+        <div class="chiffre-cle apparait" style="--delai:160ms"><b data-chiffre="vendeuses">…</b><span>vendeuses</span></div>
+        <div class="chiffre-cle apparait" style="--delai:240ms"><b data-chiffre="annonces">…</b><span>annonces disponibles</span></div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="conteneur">
+        <div class="section-entete">
+            <div class="apparait">
+                <p class="sur-titre">Prix du jour</p>
+                <h2>Combien coûte l'huile rouge ?</h2>
+                <p class="texte-doux">Prix du milieu entre les marchés, relevés le <b data-date-prix>…</b>. La flèche montre l'évolution sur une semaine.</p>
+                <p class="notice-exemple" data-exemple-prix hidden>Exemple : ces prix sont fictifs tant que le tableau Google n'est pas branché.</p><p class="notice-exemple" data-erreur-prix hidden>Les prix sont momentanément indisponibles.</p>
+            </div>
+            <a class="bouton bouton-contour apparait" href="prix.html">Tous les marchés <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="grille-prix" id="cartes-prix"></div>
+    </div>
+</section>
+
+<section class="section section-creme">
+    <div class="conteneur">
+        <div class="section-entete">
+            <div class="apparait">
+                <p class="sur-titre">Tendance</p>
+                <h2>Le prix sur 30 jours</h2>
+                <p class="texte-doux">Une courbe par marché. Passez le doigt ou la souris sur la courbe pour voir le prix d'un jour.</p>
+            </div>
+        </div>
+        <div class="carte graphique-carte apparait">
+            <div class="graphique-outils">
+                <div class="pastilles" id="choix-mesure" role="group" aria-label="Choisir la mesure"></div>
+            </div>
+            <div id="graphique"></div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="conteneur">
+        <div class="section-entete">
+            <div class="apparait">
+                <p class="sur-titre">Annonces</p>
+                <h2>De l'huile disponible maintenant</h2>
+                <p class="texte-doux">Les vendeuses publient leur stock. Contactez-les directement sur WhatsApp.</p>
+                <p class="notice-exemple" data-exemple-annonces hidden>Exemple : ces annonces sont fictives.</p>
+            </div>
+            <a class="bouton bouton-contour apparait" href="annonces.html">Toutes les annonces <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="grille-annonces" id="annonces" data-limite="3"></div>
+    </div>
+</section>
+
+<section class="section section-creme">
+    <div class="conteneur">
+        <div class="grille-decouvrir">
+            <a class="carte decouvrir apparait" href="marches.html">
+                <img src="images/photos/bord-route-600.jpg" alt="" loading="lazy">
+                <span class="decouvrir-texte"><span class="sur-titre">Carte</span><b>Où est-elle la moins chère&nbsp;?</b><span>Les marchés du Bénin sur une carte, du vert au rouge.</span></span>
+            </a>
+            <a class="carte decouvrir apparait" style="--delai:100ms" href="conseils.html">
+                <img src="images/photos/noix-600.jpg" alt="" loading="lazy">
+                <span class="decouvrir-texte"><span class="sur-titre">Conseils</span><b>Reconnaître une bonne huile</b><span>Couleur, odeur, huiles colorées : les signes qui ne trompent pas.</span></span>
+            </a>
+            <a class="carte decouvrir apparait" style="--delai:200ms" href="outils.html">
+                <img src="images/photos/bidons-600.jpg" alt="" loading="lazy">
+                <span class="decouvrir-texte"><span class="sur-titre">Outils</span><b>Calculer et être alerté</b><span>Le vrai coût d'un achat, le bon prix de vente, une alerte quand ça baisse.</span></span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="section section-palme motif-gouttes">
+    <div class="conteneur" style="position:relative">
+        <div class="section-entete">
+            <div class="apparait">
+                <p class="sur-titre">Comment ça marche</p>
+                <h2>Simple comme un formulaire</h2>
+            </div>
+        </div>
+        <div class="etapes">
+            <div class="etape apparait"><span class="etape-numero">1</span><h3>La vendeuse envoie</h3><p class="texte-doux">Son prix du jour ou son stock, depuis son téléphone, sans compte. Elle le change quand elle veut.</p></div>
+            <div class="etape apparait" style="--delai:120ms"><span class="etape-numero">2</span><h3>Le site calcule</h3><p class="texte-doux">Le prix du milieu de chaque marché, pour qu'un seul prix faux ne trompe personne.</p></div>
+            <div class="etape apparait" style="--delai:240ms"><span class="etape-numero">3</span><h3>Tout le monde y gagne</h3><p class="texte-doux">Les vendeuses vendent au juste prix, les acheteurs trouvent de l'huile près de chez eux.</p></div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="conteneur">
+        <div class="section-entete">
+            <div class="apparait">
+                <p class="sur-titre">De la noix à la bouteille</p>
+                <h2>Un savoir-faire de nos mamans</h2>
+            </div>
+        </div>
+        <div class="mosaique">
+            <figure class="apparait"><img src="images/photos/vente-600.jpg" alt="Vente d'huile rouge au marché" loading="lazy"><figcaption data-credit="vente"></figcaption></figure>
+            <figure class="apparait" style="--delai:80ms"><img src="images/photos/regime-600.jpg" alt="Régime de noix de palme" loading="lazy"><figcaption data-credit="regime"></figcaption></figure>
+            <figure class="apparait" style="--delai:160ms"><img src="images/photos/cuisson-600.jpg" alt="Cuisson traditionnelle de l'huile rouge" loading="lazy"><figcaption data-credit="cuisson"></figcaption></figure>
+            <figure class="apparait" style="--delai:240ms"><img src="images/photos/bouteilles-600.jpg" alt="Bouteilles d'huile de palme" loading="lazy"><figcaption data-credit="bouteilles"></figcaption></figure>
+            <figure class="apparait" style="--delai:320ms"><img src="images/photos/recipients-600.jpg" alt="Huile rouge en préparation" loading="lazy"><figcaption data-credit="recipients"></figcaption></figure>
+            <figure class="apparait" style="--delai:400ms"><img src="images/photos/bidons-600.jpg" alt="Marché de l'huile rouge" loading="lazy"><figcaption data-credit="bidons"></figcaption></figure>
+        </div>
+    </div>
+</section>
+
+<section class="section" style="padding-top:0">
+    <div class="conteneur">
+        <div class="carte installation apparait">
+            <div class="installation-icone" aria-hidden="true"><img src="images/icone-192.png" alt=""></div>
+            <div class="installation-texte">
+                <p class="sur-titre">Application</p>
+                <h2>Amì vɔ̀vɔ̀ sur votre téléphone</h2>
+                <p class="texte-doux" data-pas-installee>Une icône sur l'écran, comme WhatsApp. Le cahier et les derniers prix s'ouvrent même sans Internet. Rien à télécharger sur un magasin, presque pas de place prise.</p>
+                <p class="texte-doux" data-installee hidden>C'est fait : Amì vɔ̀vɔ̀ est installé sur ce téléphone. Merci !</p>
+                <div class="aide-installation" data-installer-aide hidden>
+                    <p data-aide-android><b>Sur Android :</b> ouvrez le menu de Chrome (les trois petits points) en haut à droite, puis <b>« Installer l'application »</b> ou <b>« Ajouter à l'écran d'accueil »</b>.</p>
+                    <p data-aide-iphone><b>Sur iPhone :</b> dans Safari, appuyez sur <b>Partager</b> (le carré avec une flèche), puis <b>« Sur l'écran d'accueil »</b>.</p>
+                </div>
+            </div>
+            <button type="button" class="bouton bouton-huile" data-installer data-pas-installee><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg> Installer l'application</button>
+        </div>
+    </div>
+</section>
+
+<section class="section" style="padding-top:0">
+    <div class="conteneur">
+        <div class="cta apparait">
+            <div class="cta-texte">
+                <p class="sur-titre" style="color:var(--or)">Vendeuses</p>
+                <h2>Vous vendez de l'huile rouge ?</h2>
+                <p>Envoyez votre prix et votre stock : votre annonce apparaît sur le site et les acheteurs vous contactent directement. Et tenez vos comptes avec le cahier, gratuitement.</p>
+                <div class="heros-actions" style="margin-top:0">
+                    <a class="bouton bouton-huile" href="vendre.html">Publier mon stock <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+                    <a class="bouton bouton-clair" href="cahier.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v17H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M4 21.5V4.5M8 7h8M8 11h6"/></svg> Ouvrir mon cahier</a>
+                </div>
+            </div>
+            <div class="cta-photo"><img src="images/photos/etalage-600.jpg" alt="" loading="lazy"><div class="credit-photo" data-credit="etalage" style="z-index:2"></div></div>
+        </div>
+    </div>
+</section>
+</main>
+<footer class="pied">
+    <div class="conteneur">
+        <div class="pied-grille">
+            <div>
+                <a class="logo" href="index.html"><img src="images/logo.svg" alt=""><span>Amì vɔ̀vɔ̀<small>L'huile rouge au juste prix</small></span></a>
+                <p style="margin-top:16px;max-width:380px">Les prix de l'huile rouge marché par marché, les annonces des vendeuses et un cahier de comptes simple, pour vendre et acheter au juste prix.</p>
+            </div>
+            <div>
+                <h2>Le site</h2>
+                <ul>
+                    <li><a href="prix.html">Prix du jour</a></li>
+                    <li><a href="annonces.html">Annonces et vendeuses</a></li>
+                    <li><a href="marches.html">Carte des marchés</a></li>
+                    <li><a href="conseils.html">Reconnaître une bonne huile</a></li>
+                    <li><a href="outils.html">Calculateur et alertes</a></li>
+                    <li><a href="cahier.html">Mon cahier de vendeuse</a></li>
+                    <li><a href="vendre.html">Mettre à jour mon prix ou mon stock</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2>Nous écrire</h2>
+                <ul>
+                    <li><a data-whatsapp-equipe="Bonjour Amì vɔ̀vɔ̀ !" href="#">WhatsApp</a></li>
+                    <li><a href="credits.html">Crédits des photos</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="pied-bas">
+            <p>© <span data-annee></span> Amì vɔ̀vɔ̀. Prix en francs CFA, donnés à titre indicatif.</p>
+            <p>Photos : Wikimedia Commons, licences libres (<a href="credits.html">auteurs</a>).</p>
+        </div>
+    </div>
+</footer>
+<a class="whatsapp-flottant" data-whatsapp-equipe="Bonjour Amì vɔ̀vɔ̀ ! J'ai une question." href="#" aria-label="Écrire à l'équipe sur WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.1-1.2l-.5-.3z"/></svg></a>
+<script src="js/reglages.js"></script>
+<script src="js/photos.js"></script>
+<script src="js/donnees.js"></script>
+<script src="js/main.js"></script>
+<script src="js/pwa.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+    "name": "Amì vɔ̀vɔ̀ · L'huile rouge au juste prix",
+    "short_name": "Amì vɔ̀vɔ̀",
+    "description": "Prix de l'huile rouge marché par marché, annonces des vendeuses et cahier de comptes.",
+    "lang": "fr",
+    "start_url": "index.html?source=application",
+    "scope": "./",
+    "display": "standalone",
+    "background_color": "#fbf5ea",
+    "theme_color": "#1f5130",
+    "icons": [
+        { "src": "images/icone-192.png", "sizes": "192x192", "type": "image/png" },
+        { "src": "images/icone-512.png", "sizes": "512x512", "type": "image/png" },
+        { "src": "images/icone-masque-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    ],
+    "shortcuts": [
+        { "name": "Prix du jour", "url": "prix.html", "icons": [{ "src": "images/icone-192.png", "sizes": "192x192" }] },
+        { "name": "Mon cahier", "url": "cahier.html", "icons": [{ "src": "images/icone-192.png", "sizes": "192x192" }] },
+        { "name": "Je vends", "url": "vendre.html", "icons": [{ "src": "images/icone-192.png", "sizes": "192x192" }] }
+    ]
+}
